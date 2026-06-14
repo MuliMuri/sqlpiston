@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, cast
 
 from sqlpiston.builder.nodes import ExprValue
 from sqlpiston._types import SQLValue
@@ -22,8 +22,11 @@ class MySQLCursor(Cursor):  # pragma: no cover — requires mysql.connector (opt
         return int(self._cursor.rowcount)
 
     @property
-    def description(self) -> List[Tuple[str, int, Any, Any, Any, Any, Any]]:
-        return self._cursor.description if self._cursor.description else []
+    def description(self) -> List[Tuple[str, int, Any, Any, Any, Any, Any]]:  # pragma: no cover — requires mysql.connector
+        desc = self._cursor.description
+        if desc is None:
+            return []
+        return cast(List[Tuple[str, int, Any, Any, Any, Any, Any]], desc)
 
 
 class MySQLConnection(Connection):  # pragma: no cover — requires mysql.connector (optional dependency)

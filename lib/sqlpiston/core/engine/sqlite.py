@@ -1,5 +1,5 @@
 import sqlite3
-from typing import Any, List, Optional, Tuple
+from typing import Any, List, Optional, Tuple, cast
 
 from sqlpiston.builder.nodes import ExprValue
 from sqlpiston._types import SQLValue
@@ -27,7 +27,7 @@ class SQLiteCursor(Cursor):
         desc = self._cursor.description
         if desc is None:
             return []
-        return [tuple(d) for d in desc]
+        return cast(List[Tuple[str, int, Any, Any, Any, Any, Any]], [tuple(d) for d in desc])
 
 
 class SQLiteConnection(Connection):
