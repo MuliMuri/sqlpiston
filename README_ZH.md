@@ -1,15 +1,13 @@
 # SQLPiston
 
-*Write once, query everywhere — build SQL with Python operators.*
+*一次编写，到处查询 — 用 Python 运算符构建 SQL。*
 
-[中文版](README_ZH.md)
+[English](README.md)
 
-SQLPiston is a low-level SQL library that builds parameterized SQL queries
-through Python operator overloading. AST nodes carry zero SQL knowledge;
-dialect-specific compilers translate the same AST into the right SQL for each
-database.
+SQLPiston 是一个底层 Python SQL 库，通过运算符重载构建参数化 SQL
+查询。AST 节点不包含任何 SQL 知识；方言编译器将同一个 AST 翻译为不同数据库的 SQL。
 
-## Install
+## 安装
 
 ```bash
 git clone https://github.com/MuliMuri/sqlpiston.git
@@ -17,9 +15,9 @@ cd sqlpiston
 pip install -e .
 ```
 
-Python 3.9+ on Linux / macOS / Windows.
+Python 3.9+，支持 Linux / macOS / Windows。
 
-## Basic Usage
+## 基本用法
 
 ```python
 from sqlpiston import Select, Field, Insert
@@ -57,7 +55,7 @@ session.close()
 ```
 
 <details>
-<summary>More examples: JOIN, subquery, CTE, UPSERT, DDL</summary>
+<summary>更多示例：JOIN、子查询、CTE、UPSERT、DDL</summary>
 
 **JOIN**
 
@@ -70,10 +68,10 @@ Select() \
     .where(Field("total", "orders") > 100)
 ```
 
-**Subquery (IN / EXISTS / Scalar)**
+**子查询（IN / EXISTS / 标量）**
 
 ```python
-# IN subquery
+# IN 子查询
 admin_ids = Select().select("id").from_table("admins")
 stmt = Select().select("name").from_table("users") \
     .where(Field("id").is_in(admin_ids))
@@ -83,7 +81,7 @@ sub = Select().select("1").from_table("orders") \
     .where(Field("user_id", "orders") == Field("id", "users"))
 stmt = Select().select("name").from_table("users").where(sub.exists())
 
-# Scalar
+# 标量子查询
 avg = Select().select(SQLFunction("avg", "salary")).from_table("employees")
 stmt = Select().select("name").from_table("staff").where(Field("salary") > avg)
 ```
@@ -96,7 +94,7 @@ cte = Select().select("*").from_table("sales") \
 stmt = Select().with_(cte).select("*").from_table("big_sales")
 ```
 
-**UPSERT — same AST, different SQL per dialect**
+**UPSERT — 同一 AST，不同方言生成不同 SQL**
 
 ```python
 Upsert() \
@@ -106,10 +104,10 @@ Upsert() \
     .do_update({"name": "X"})
 ```
 
-| Dialect | Generated SQL |
-|---------|--------------|
-| MySQL   | `INSERT INTO ... ON DUPLICATE KEY UPDATE` |
-| SQLite  | `INSERT INTO ... ON CONFLICT DO UPDATE`   |
+| 方言   | 生成 SQL |
+|--------|---------|
+| MySQL  | `INSERT INTO ... ON DUPLICATE KEY UPDATE` |
+| SQLite | `INSERT INTO ... ON CONFLICT DO UPDATE`   |
 
 **DDL**
 
@@ -125,15 +123,15 @@ DropTable().table("users").if_exists()
 
 </details>
 
-## Highlights
+## 特性
 
-- **Operator overloading** — `Field("age") >= 18` builds AST, not a boolean
-- **Dialect-aware** — same AST compiles to MySQL (%s, backticks) or SQLite (?, double-quotes)
-- **Full standard SQL** — SELECT, INSERT, UPDATE, DELETE, UPSERT, CTE, UNION, subqueries, DDL
-- **Parameterized by design** — values never interpolated into SQL strings
-- **Weak ORM** — result-to-dataclass mapping, no identity map or change tracking
+- **运算符重载** — `Field("age") >= 18` 构建 AST 节点，而非布尔值
+- **方言感知** — 同一 AST 编译为 MySQL（%s、反引号）或 SQLite（?、双引号）
+- **标准 SQL 全覆盖** — SELECT / INSERT / UPDATE / DELETE / UPSERT / CTE / UNION / 子查询 / DDL
+- **默认参数化** — 值永远不会拼入 SQL 字符串
+- **弱 ORM** — 结果到 dataclass 的映射，无 identity map 和变更追踪
 
-## Documentation
+## 文档
 
 ```bash
 cd docs
@@ -141,6 +139,6 @@ pip install -r requirements.txt
 sphinx-build -b html source build/html
 ```
 
-## License
+## 许可证
 
 MIT
