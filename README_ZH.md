@@ -1,5 +1,12 @@
 # SQLPiston
 
+[![test](https://github.com/MuliMuri/sqlpiston/actions/workflows/test.yml/badge.svg)](https://github.com/MuliMuri/sqlpiston/actions/workflows/test.yml)
+[![lint](https://github.com/MuliMuri/sqlpiston/actions/workflows/lint.yml/badge.svg)](https://github.com/MuliMuri/sqlpiston/actions/workflows/lint.yml)
+[![coverage](https://codecov.io/gh/MuliMuri/sqlpiston/branch/main/graph/badge.svg)](https://codecov.io/gh/MuliMuri/sqlpiston)
+[![pypi](https://img.shields.io/pypi/v/sqlpiston.svg)](https://pypi.org/project/sqlpiston/)
+[![python](https://img.shields.io/pypi/pyversions/sqlpiston)](https://pypi.org/project/sqlpiston/)
+[![license](https://img.shields.io/github/license/MuliMuri/sqlpiston)](https://github.com/MuliMuri/sqlpiston/blob/main/LICENSE)
+
 *一次编写，到处查询 — 用 Python 运算符构建 SQL。*
 
 [English](README.md)
