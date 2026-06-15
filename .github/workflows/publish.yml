@@ -25,7 +25,9 @@ jobs:
       - name: Run tests against built package
         run: |
           cd /tmp
-          python -m pytest ${{ github.workspace }}/tests/ --cov=sqlpiston --cov-fail-under=100
+          coverage run --source sqlpiston --parallel-mode -m pytest ${{ github.workspace }}/tests/
+          coverage combine
+          coverage report --fail-under=100
 
   pypi:
     needs: check
