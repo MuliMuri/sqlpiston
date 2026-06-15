@@ -32,6 +32,10 @@ dev = [
     "coverage>=7",
     "flake8>=7",
     "mypy>=1",
+    "types-PyMySQL>=1",
+]
+mysql = [
+    "pymysql>=1",
 ]
 
 [tool.setuptools.packages.find]

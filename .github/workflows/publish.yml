@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip build
-          pip install pytest coverage
+          pip install pytest coverage pymysql
       - name: Build check
         run: python -m build
       - name: Install built package
