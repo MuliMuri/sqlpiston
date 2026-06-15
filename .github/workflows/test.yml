@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest coverage
+          pip install pytest coverage pymysql
       - name: Run tests with coverage
         run: |
           coverage run --source sqlpiston --parallel-mode -m pytest tests/
